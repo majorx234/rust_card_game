@@ -7,3 +7,11 @@ edition = "2021"
 [lib]
 name = "card_game"
 path = "src/lib.rs"
+
+[[bin]]
+name = "black_jack"
+path = "src/main.rs"
+
+
+[dependencies]
+rand = { version = "0.8.5"}
