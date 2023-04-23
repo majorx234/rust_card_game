@@ -1,0 +1,12 @@
+[package]
+name = "card_base"
+version = "0.1.0"
+authors = ["MajorX234 <majorx234@googlemail.com>"]
+edition = "2021"
+
+[lib]
+name = "cards"
+path = "src/lib.rs"
+
+[dependencies]
+card_macros = {path = "../card_macros"}

@@ -1,0 +1,12 @@
+[package]
+name = "card_game"
+version = "0.1.0"
+authors = ["MajorX234 <majorx234@googlemail.com>"]
+edition = "2021"
+
+[[bin]]
+name = "black_jack"
+path = "src/main.rs"
+
+[dependencies]
+rand = { version = "0.8.5"}
