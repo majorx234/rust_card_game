@@ -2,5 +2,5 @@
 members = [
     "card_macros",
     "card_base",
-    "card_game"
+    "card_game",
 ]

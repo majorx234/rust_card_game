@@ -10,3 +10,4 @@ path = "src/main.rs"
 
 [dependencies]
 rand = { version = "0.8.5"}
+card_base = { path = "../card_base" }
