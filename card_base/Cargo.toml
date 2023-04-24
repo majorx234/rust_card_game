@@ -10,3 +10,5 @@ path = "src/lib.rs"
 
 [dependencies]
 card_macros = {path = "../card_macros"}
+strum_macros = "0.24"
+strum = { version = "0.24", features = ["derive"] }
