@@ -6,7 +6,7 @@ macro_rules! derive_error {
     ($string: tt) => {
         Error::new(Span::call_site().into(), $string)
             .to_compile_error()
-            .into();
+            .into()
     };
 }
 
@@ -25,7 +25,7 @@ pub fn derive_to_string(input: TokenStream) -> TokenStream {
                 // Variant's name
                 let ref variant_name = variant.ident;
                 enum_items.push(quote! {
-                    Rank::#variant_name => "variant_name".to_string()
+                    #enum_name::#variant_name => "variant_name".to_string()
 
                 });
             }
@@ -36,7 +36,7 @@ pub fn derive_to_string(input: TokenStream) -> TokenStream {
                             #(#enum_items),*
                         }
                     }
-                }
+                },
             };
             return TokenStream::from(gen);
         }
