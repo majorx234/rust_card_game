@@ -35,19 +35,13 @@ enum Rank {
     Ace,
 }
 
-impl Rank {
-    fn to_string(&self) {
-        format!("test rank");
-    }
-}
-
 pub struct Card {
     rank: Rank,
     suit: Suit,
 }
 
-// impl Card {
-//    fn to_string(&self) {
-//        format!("[{} {}]", self.rank.to_string(), self.suit.to_string(),);
-//    }
-// }
+impl Card {
+    fn to_string(&self) {
+        format!("[{} {}]", self.rank.to_string(), self.suit.to_string(),);
+    }
+}
