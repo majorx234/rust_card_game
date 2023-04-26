@@ -25,7 +25,7 @@ pub fn derive_to_string(input: TokenStream) -> TokenStream {
                 // Variant's name
                 let ref variant_name = variant.ident;
                 enum_items.push(quote! {
-                    #enum_name::#variant_name => "variant_name".to_string()
+                    #enum_name::#variant_name => stringify!(#variant_name).to_string()
 
                 });
             }
