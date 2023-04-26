@@ -1,4 +1,5 @@
 use card_macros::EnumToStr;
+use std::collections::HashMap;
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
@@ -21,7 +22,7 @@ impl Suit {
     }
 }
 
-#[derive(EnumToStr, EnumIter, Clone)]
+#[derive(EnumToStr, EnumIter, Clone, Eq, Hash, PartialEq)]
 pub enum Rank {
     King,
     Queen,
@@ -52,6 +53,12 @@ impl Card {
     }
     pub fn to_string(&self) -> String {
         format!("[{} {}]", self.rank.to_string(), self.suit.to_string(),)
+    }
+    pub fn to_value(&self, card_values: &HashMap<Rank, u32>) -> u32 {
+        match card_values.get(&self.rank) {
+            Some(value) => *value,
+            None => 0,
+        }
     }
 }
 
