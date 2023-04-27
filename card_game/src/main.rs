@@ -1,8 +1,10 @@
 use cards::card::{Card, CardStack, Rank};
+use rand::Rng;
 use std::collections::HashMap;
 use std::{io, str::CharIndices};
 
 fn main() {
+    let mut rng = rand::thread_rng();
     let mut values: HashMap<Rank, u32> = HashMap::new();
     values.insert(Rank::Ace, 11);
     values.insert(Rank::King, 10);
@@ -22,14 +24,14 @@ fn main() {
     let mut sum_bank = 0;
     let mut player_win = true;
     let mut card_stack = CardStack::new();
+    card_stack.shuffle(&mut rng);
 
     println!("Player {} Bank {}", sum_player, sum_bank);
     let mut card_player = get_card(&mut card_stack);
     sum_player += card_player.to_value(&values);
-
+    println!("Card for Player {}", card_player.to_string());
     // player draws cards
     loop {
-        println!("Card for Player {}", card_player.to_string());
         let mut answer = String::new();
         println!("Card? Y/[N]");
         io::stdin()
@@ -41,9 +43,10 @@ fn main() {
         } else {
             break;
         }
+        println!("Card for Player {}", card_player.to_string());
         sum_player += card_player.to_value(&values);
         if sum_player > 21 {
-            println!("You lose");
+            println!("You lose: {}", sum_player);
             return;
         }
     }
@@ -52,6 +55,5 @@ fn main() {
 }
 
 fn get_card(card_stack: &mut CardStack) -> Card {
-    let mut rng = rand::thread_rng();
     card_stack.stack.pop().unwrap()
 }

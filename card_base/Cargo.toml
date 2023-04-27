@@ -12,3 +12,5 @@ path = "src/lib.rs"
 card_macros = {path = "../card_macros"}
 strum_macros = "0.24"
 strum = { version = "0.24", features = ["derive"] }
+shuffle = {version = "0.1.7"}
+rand = {version = "0.8.5"}

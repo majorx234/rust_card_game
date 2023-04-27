@@ -1,4 +1,8 @@
 use card_macros::EnumToStr;
+use rand::rngs::ThreadRng;
+use rand::Rng;
+use shuffle::irs::Irs;
+use shuffle::shuffler::Shuffler;
 use std::collections::HashMap;
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
@@ -22,6 +26,12 @@ impl Suit {
     }
 }
 
+impl Default for Suit {
+    fn default() -> Self {
+        return Suit::Spades;
+    }
+}
+
 #[derive(EnumToStr, EnumIter, Clone, Eq, Hash, PartialEq)]
 pub enum Rank {
     King,
@@ -38,7 +48,13 @@ pub enum Rank {
     Two,
     Ace,
 }
+impl Default for Rank {
+    fn default() -> Self {
+        return Rank::Ace;
+    }
+}
 
+#[derive(Clone, Default)]
 pub struct Card {
     rank: Rank,
     suit: Suit,
@@ -74,6 +90,11 @@ impl CardStack {
                 stack.push(Card::new(suit_item.clone(), rank_item.clone()));
             }
         }
-        CardStack { stack: stack }
+        CardStack { stack }
+    }
+
+    pub fn shuffle(&mut self, rng: &mut ThreadRng) {
+        let mut irs = Irs::default();
+        irs.shuffle(&mut self.stack, rng);
     }
 }
