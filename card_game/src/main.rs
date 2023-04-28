@@ -21,15 +21,19 @@ fn main() {
     values.insert(Rank::Two, 2);
 
     let mut sum_player: u32 = 0;
-    let mut sum_bank = 0;
+    let mut sum_bank: u32 = 0;
     let mut player_win = true;
+    let mut player_quit = false;
     let mut card_stack = CardStack::new();
     card_stack.shuffle(&mut rng);
 
     println!("Player {} Bank {}", sum_player, sum_bank);
     let mut card_player = get_card(&mut card_stack);
+    let mut card_bank = get_card(&mut card_stack);
     sum_player += card_player.to_value(&values);
+    sum_bank += card_bank.to_value(&values);
     println!("Card for Player {}", card_player.to_string());
+    println!("Card for Bank {}", card_bank.to_string());
     // player draws cards
     loop {
         let mut answer = String::new();
@@ -41,7 +45,7 @@ fn main() {
         if answer == "Y" || answer == "y" {
             card_player = get_card(&mut card_stack);
         } else {
-            break;
+            player_quit = true;
         }
         println!("Card for Player {}", card_player.to_string());
         sum_player += card_player.to_value(&values);
@@ -49,9 +53,23 @@ fn main() {
             println!("You lose: {}", sum_player);
             return;
         }
+        if sum_player > sum_bank {
+            card_bank = get_card(&mut card_stack);
+            println!("Card for Bank {}", card_bank.to_string());
+            sum_bank += card_bank.to_value(&values);
+            if sum_bank > 21 {
+                println!("Player win: {} vs {}", sum_player, sum_bank);
+                return;
+            }
+        }
+        if player_quit {
+            break;
+        }
+        println!("Player {} Bank {}", sum_player, sum_bank);
     }
-    // bank draws cards
-    println!("Player win: {}", sum_player);
+    if sum_player > sum_bank {
+        println!("Player win: {} vs {}", sum_player, sum_bank);
+    }
 }
 
 fn get_card(card_stack: &mut CardStack) -> Card {
